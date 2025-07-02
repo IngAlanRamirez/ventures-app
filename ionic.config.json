@@ -1,0 +1,7 @@
+{
+  "name": "ventures-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
