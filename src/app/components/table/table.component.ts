@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { addIcons } from 'ionicons';
-import { checkmarkCircleOutline } from 'ionicons/icons';
-import { IonIcon } from '@ionic/angular/standalone';
+import { checkmarkCircleOutline, chevronForwardOutline } from 'ionicons/icons';
+import { IonIcon, IonButton } from '@ionic/angular/standalone';
 
 interface FeatureRow {
   feature: string;
@@ -30,14 +30,14 @@ const FEATURES: FeatureRow[] = [
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  imports: [IonIcon, MatTableModule],
+  imports: [IonButton, IonIcon, MatTableModule],
 })
 export class TableComponent implements OnInit {
   displayedColumns: string[] = ['feature', 'noCardRequired', 'cardLinked'];
   dataSource = new MatTableDataSource(FEATURES);
 
   constructor() {
-    addIcons({ checkmarkCircleOutline });
+    addIcons({ checkmarkCircleOutline, chevronForwardOutline });
   }
 
   ngOnInit() {}
