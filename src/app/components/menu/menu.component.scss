@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.menu-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #222;
+}
+
+.menu-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+ion-chip.menu-chip {
+  --background: #f5f7fa;
+  --color: #222;
+  --border-radius: 20px;
+  --padding-start: 22px;
+  --padding-end: 22px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px 0 rgba(26, 60, 255, 0.04);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+ion-chip.menu-chip.active {
+  --background: #222;
+  --color: #fff;
+  font-weight: 700;
+}
+
+ion-button.menu-btn {
+  --border-color: #e0e0e0;
+  --color: #222;
+  --background: #f5f7fa;
+  --border-radius: 20px;
+  --padding-start: 22px;
+  --padding-end: 22px;
+  font-size: 1rem;
+  font-weight: 500;
+  min-height: 38px;
+  box-shadow: 0 2px 8px 0 rgba(26, 60, 255, 0.04);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+ion-button.menu-btn.active {
+  --background: #222;
+  --color: #fff;
+  --border-color: #222;
+  font-weight: 700;
+}
