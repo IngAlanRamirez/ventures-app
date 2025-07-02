@@ -14,4 +14,14 @@
   .table-features {
     margin: 2rem 0;
   }
+
+  .icon-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ion-icon {
+      font-size: 1.5rem;
+      color: var(--ion-color-primary);
+    }
+  }
 }

@@ -16,18 +16,28 @@
     <ng-container matColumnDef="noCardRequired">
       <th mat-header-cell *matHeaderCellDef>No card linking required</th>
       <td mat-cell *matCellDef="let element">
-        @if (element.noCardRequired) {
-        <ion-icon name="checkmark-circle-outline"></ion-icon>
-        }
+        <div class="icon-cell">
+          @if (element.noCardRequired) {
+          <ion-icon
+            name="checkmark-circle-outline"
+            style="font-size: 2.2rem; color: var(--ion-color-primary);"
+          ></ion-icon>
+          }
+        </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="cardLinked">
       <th mat-header-cell *matHeaderCellDef>Link your card to get</th>
       <td mat-cell *matCellDef="let element">
-        @if (element.cardLinked) {
-        <ion-icon name="checkmark-circle-outline"></ion-icon>
-        }
+        <div class="icon-cell">
+          @if (element.cardLinked) {
+          <ion-icon
+            name="checkmark-circle-outline"
+            style="font-size: 2.2rem; color: var(--ion-color-primary);"
+          ></ion-icon>
+          }
+        </div>
       </td>
     </ng-container>
 
