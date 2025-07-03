@@ -14,6 +14,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { Store } from '@ngrx/store';
 import { MarcaMenu } from '../../models/marca-menu';
 import * as BrandsSelectors from '../../store/brands/brands.selectors';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-brand',
@@ -27,6 +28,7 @@ import * as BrandsSelectors from '../../store/brands/brands.selectors';
     MatSelectModule,
     MatOptionModule,
     FormsModule,
+    TranslatePipe,
   ],
 })
 export class BrandComponent {

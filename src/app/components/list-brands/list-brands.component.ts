@@ -13,12 +13,13 @@ import { CouponComponent } from '../coupon/coupon.component';
 import { Store } from '@ngrx/store';
 import { MarcaMenu } from '../../models/marca-menu';
 import * as BrandsSelectors from '../../store/brands/brands.selectors';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-list-brands',
   templateUrl: './list-brands.component.html',
   styleUrls: ['./list-brands.component.scss'],
-  imports: [IonButton, IonIcon, CouponComponent],
+  imports: [IonButton, IonIcon, CouponComponent, TranslatePipe],
 })
 export class ListBrandsComponent implements OnInit {
   private store = inject(Store);

@@ -1,16 +1,19 @@
 <footer class="footer-container">
   <div class="footer-links">
-    <a href="#">Contact Support</a>
-    <a href="#">Terms and Conditions</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Cookie Policy</a>
+    <a href="#">{{ "footer.contactSupport" | translate }}</a>
+    <a href="#">{{ "footer.termsConditions" | translate }}</a>
+    <a href="#">{{ "footer.privacyPolicy" | translate }}</a>
+    <a href="#">{{ "footer.cookiePolicy" | translate }}</a>
   </div>
   <div class="footer-lang">
     <ion-icon name="language-outline"></ion-icon>
     <mat-form-field appearance="outline" class="footer-select-mat">
-      <mat-select [(value)]="selectedLang">
+      <mat-select
+        [value]="selectedLang()"
+        (selectionChange)="onLanguageChange($event.value)"
+      >
         <mat-option value="en">English</mat-option>
-        <mat-option value="es">Spanish</mat-option>
+        <mat-option value="es">Español</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

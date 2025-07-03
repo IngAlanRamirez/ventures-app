@@ -5,22 +5,24 @@
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ "login.email" | translate }}</mat-label>
         <input matInput formControlName="email" type="email" required />
       </mat-form-field>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ "login.password" | translate }}</mat-label>
         <input matInput formControlName="password" type="password" required />
       </mat-form-field>
       <div class="button-row">
-        <button mat-raised-button color="primary" type="submit">Login</button>
+        <button mat-raised-button color="primary" type="submit">
+          {{ "login.login" | translate }}
+        </button>
         <button
           mat-stroked-button
           color="warn"
           type="button"
           (click)="onCancel()"
         >
-          Cancelar
+          {{ "login.cancel" | translate }}
         </button>
       </div>
     </form>

@@ -1,38 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, computed } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { addIcons } from 'ionicons';
 import { checkmarkCircleOutline, chevronForwardOutline } from 'ionicons/icons';
 import { IonIcon, IonButton } from '@ionic/angular/standalone';
+import { TranslationService } from '../../services/translation.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface FeatureRow {
-  feature: string;
+  featureKey: string;
   noCardRequired: boolean;
   cardLinked: boolean;
 }
 
 const FEATURES: FeatureRow[] = [
-  { feature: 'Instant Coupons', noCardRequired: true, cardLinked: true },
   {
-    feature: 'Full access to Visa Savings Edge benefits',
+    featureKey: 'table.features.instantCoupons',
+    noCardRequired: true,
+    cardLinked: true,
+  },
+  {
+    featureKey: 'table.features.visaBenefits',
     noCardRequired: false,
     cardLinked: true,
   },
-  { feature: 'Cashback tracking', noCardRequired: false, cardLinked: true },
   {
-    feature: 'Merchant location search',
+    featureKey: 'table.features.cashbackTracking',
     noCardRequired: false,
     cardLinked: true,
   },
-  { feature: 'Cashback offers', noCardRequired: false, cardLinked: true },
+  {
+    featureKey: 'table.features.merchantLocation',
+    noCardRequired: false,
+    cardLinked: true,
+  },
+  {
+    featureKey: 'table.features.cashbackOffers',
+    noCardRequired: false,
+    cardLinked: true,
+  },
 ];
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  imports: [IonButton, IonIcon, MatTableModule],
+  imports: [IonButton, IonIcon, MatTableModule, TranslatePipe],
 })
 export class TableComponent implements OnInit {
+  private translationService = inject(TranslationService);
   displayedColumns: string[] = ['feature', 'noCardRequired', 'cardLinked'];
   dataSource = new MatTableDataSource(FEATURES);
 
@@ -41,4 +56,9 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  // Método para obtener traducción de feature
+  getFeatureTranslation(featureKey: string): string {
+    return this.translationService.translate(featureKey);
+  }
 }

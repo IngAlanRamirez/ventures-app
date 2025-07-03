@@ -1,21 +1,29 @@
 <div class="brand-container">
   <div class="brand-title-options">
     <h2 class="brand-title">
-      Featured Instant Coupons ({{ brands().length }})
+      {{ "brand.title" | translate }} ({{ brands().length }})
     </h2>
     <div class="options">
       <ion-button><ion-icon name="list-outline"></ion-icon></ion-button>
       <ion-button><ion-icon name="grid-outline"></ion-icon></ion-button>
       <mat-form-field appearance="outline" class="sort-select">
-        <mat-label>Sort By</mat-label>
+        <mat-label>{{ "brand.sortBy" | translate }}</mat-label>
         <mat-select
           [ngModel]="currentSortValue()"
           (ngModelChange)="onSortChange($event)"
         >
-          <mat-option value="nombreMarca-asc">Nombre A-Z</mat-option>
-          <mat-option value="nombreMarca-desc">Nombre Z-A</mat-option>
-          <mat-option value="descripcion-asc">Descripción A-Z</mat-option>
-          <mat-option value="descripcion-desc">Descripción Z-A</mat-option>
+          <mat-option value="nombreMarca-asc">{{
+            "brand.nameAZ" | translate
+          }}</mat-option>
+          <mat-option value="nombreMarca-desc">{{
+            "brand.nameZA" | translate
+          }}</mat-option>
+          <mat-option value="descripcion-asc">{{
+            "brand.descriptionAZ" | translate
+          }}</mat-option>
+          <mat-option value="descripcion-desc">{{
+            "brand.descriptionZA" | translate
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -23,15 +31,15 @@
 
   @if (loading()) {
   <div class="brand-loading">
-    <p>Cargando marcas...</p>
+    <p>{{ "brand.loadingBrands" | translate }}</p>
   </div>
   } @else if (error()) {
   <div class="brand-error">
-    <p>Error al cargar marcas: {{ error() }}</p>
+    <p>{{ "brand.errorLoadingBrands" | translate }}: {{ error() }}</p>
   </div>
   } @else if (brands().length === 0) {
   <div class="brand-empty">
-    <p>No hay marcas disponibles para esta categoría</p>
+    <p>{{ "brand.noBrandsAvailable" | translate }}</p>
   </div>
   } @else {
   <div class="brand-grid">
@@ -40,7 +48,7 @@
       [logo]="brand.imagen"
       [brand]="brand.nombreMarca"
       [title]="brand.descripcion"
-      [action]="'Ver ofertas'"
+      [action]="'common.viewOffers' | translate"
       [subtitle]="brand.nombreMarca"
     ></app-coupon>
     }
@@ -48,7 +56,8 @@
   } @if (hasMore()) {
   <div class="brand-more">
     <button class="brand-more-link" (click)="showAllBrands()">
-      MORE INSTANT COUPONS <ion-icon name="chevron-forward-outline"></ion-icon>
+      {{ "brand.moreInstantCoupons" | translate }}
+      <ion-icon name="chevron-forward-outline"></ion-icon>
     </button>
   </div>
   }

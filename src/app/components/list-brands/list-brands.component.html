@@ -1,8 +1,8 @@
-<h2>Unlock the full power of</h2>
+<h2>{{ "listBrands.title" | translate }}</h2>
 
 @if (randomBrands().length === 0) {
 <div class="empty-state">
-  <p>Selecciona una categoría para ver ofertas exclusivas</p>
+  <p>{{ "listBrands.selectCategory" | translate }}</p>
 </div>
 } @else {
 <div class="brands-grid">
@@ -11,7 +11,7 @@
     [logo]="brand.imagen"
     [brand]="brand.nombreMarca"
     [title]="brand.descripcion"
-    [action]="'Get Offer'"
+    [action]="'common.getOffer' | translate"
     [subtitle]="brand.nombreMarca"
   ></app-coupon>
   }
@@ -19,6 +19,6 @@
 }
 
 <ion-button fill="solid" color="primary" shape="round">
-  Link your card
+  {{ "listBrands.linkCard" | translate }}
   <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
 </ion-button>
