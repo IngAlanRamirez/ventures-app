@@ -1,12 +1,30 @@
 import { Component } from '@angular/core';
-import { IonIcon } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { CouponComponent } from '../coupon/coupon.component';
+import { addIcons } from 'ionicons';
+import {
+  listOutline,
+  gridOutline,
+  chevronForwardOutline,
+} from 'ionicons/icons';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
   styleUrls: ['./brand.component.scss'],
-  imports: [IonIcon, CouponComponent],
+  imports: [
+    IonButton,
+    IonIcon,
+    CouponComponent,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    FormsModule,
+  ],
   standalone: true,
 })
 export class BrandComponent {
@@ -27,4 +45,10 @@ export class BrandComponent {
     },
     // ...agrega más objetos según la imagen...
   ];
+  sortBy = 'asc';
+  sortOrder = 'asc';
+
+  constructor() {
+    addIcons({ listOutline, gridOutline, chevronForwardOutline });
+  }
 }

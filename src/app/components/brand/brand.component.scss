@@ -2,6 +2,18 @@
   .brand-container {
     margin-top: 4rem;
     margin-bottom: 4rem;
+    .brand-title-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      .options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
   }
   .brand-title {
     font-size: 1.5rem;

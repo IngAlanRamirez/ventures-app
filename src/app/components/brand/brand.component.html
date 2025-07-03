@@ -1,5 +1,18 @@
 <div class="brand-container">
-  <h2 class="brand-title">Featured Instant Coupons (200)</h2>
+  <div class="brand-title-options">
+    <h2 class="brand-title">Featured Instant Coupons (200)</h2>
+    <div class="options">
+      <ion-button><ion-icon name="list-outline"></ion-icon></ion-button>
+      <ion-button><ion-icon name="grid-outline"></ion-icon></ion-button>
+      <mat-form-field appearance="outline" class="sort-select">
+        <mat-label>Ordenar</mat-label>
+        <mat-select [(ngModel)]="sortOrder">
+          <mat-option value="asc">Ascendente</mat-option>
+          <mat-option value="desc">Descendente</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
   <div class="brand-grid">
     @for (coupon of coupons; track coupon) {
     <app-coupon
