@@ -24,6 +24,19 @@
     max-width: 1400px;
   }
 
+  .empty-state {
+    margin: 3rem 0;
+    padding: 2rem;
+    text-align: center;
+
+    p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
   ion-button {
     margin: 2rem 0;
   }
