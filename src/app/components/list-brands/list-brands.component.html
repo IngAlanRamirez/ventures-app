@@ -1,0 +1,16 @@
+<h2>Unlock the full power of</h2>
+<div class="brands-grid">
+  @for (brand of brands; track brand) {
+  <app-coupon
+    [logo]="brand.logo"
+    [brand]="brand.brand"
+    [title]="brand.title"
+    [action]="brand.action"
+    [subtitle]="brand.subtitle"
+  ></app-coupon>
+  }
+</div>
+<ion-button fill="solid" color="primary" shape="round">
+  Link your card
+  <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+</ion-button>
