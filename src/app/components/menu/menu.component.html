@@ -6,10 +6,10 @@
       fill="outline"
       shape="round"
       class="menu-btn"
-      [class.active]="activeCategory === category"
-      (click)="setActiveCategory(category)"
+      [class.active]="activeCategory === category.descripcion"
+      (click)="setActiveCategory(category.descripcion)"
     >
-      {{ category }}
+      {{ category.descripcion }}
     </ion-button>
     }
   </div>

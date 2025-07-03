@@ -3,8 +3,6 @@ import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { chevronForwardOutline } from 'ionicons/icons';
 import { CouponComponent } from '../coupon/coupon.component';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { BrandsService } from 'src/app/services/brands.service';
 
 @Component({
   selector: 'app-list-brands',
@@ -44,25 +42,8 @@ export class ListBrandsComponent implements OnInit {
     },
   ];
 
-  apiCategories = inject(CategoriesService);
-  apiBrands = inject(BrandsService);
-
   constructor() {
     addIcons({ chevronForwardOutline });
-    this.apiCategories.getCategories().subscribe((response) => {
-      if (response.error) {
-        console.error('Error fetching categories:', response.message);
-      } else {
-        console.log('Categories fetched successfully:', response.categorias);
-      }
-    });
-    this.apiBrands.getBrands().subscribe((response) => {
-      if (response.error) {
-        console.error('Error fetching brands:', response.message);
-      } else {
-        console.log('Brands fetched successfully:', response);
-      }
-    });
   }
 
   ngOnInit() {}

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IonTitle, IonButton } from '@ionic/angular/standalone';
+import { CategoriaMenu } from 'src/app/models/categoria-menu';
 
 @Component({
   selector: 'app-menu',
@@ -8,21 +9,8 @@ import { IonTitle, IonButton } from '@ionic/angular/standalone';
   imports: [IonTitle, IonButton],
 })
 export class MenuComponent implements OnInit {
-  categories = [
-    'Featured',
-    'Restaurants',
-    'Travel',
-    'Fuel',
-    'Services',
-    'Gifts & Entertainment',
-    'Shopping',
-    'Electronics',
-    'Software',
-    'Health & Beauty',
-    'Office Supplies',
-    'Automotive',
-  ];
-  activeCategory = this.categories[0];
+  @Input() categories: CategoriaMenu[] = [];
+  activeCategory = this.categories[0]?.descripcion || '';
 
   constructor() {}
 
