@@ -1,7 +1,6 @@
 :host {
   .brand-container {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
+    margin: 4rem 0;
     .brand-title-options {
       display: flex;
       justify-content: space-between;
@@ -9,9 +8,53 @@
       margin-bottom: 1.5rem;
       .options {
         display: flex;
-        justify-content: center;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
+        ion-button {
+          --background: transparent;
+          --box-shadow: none;
+          --color: #1a3cff;
+          --border-radius: 8px;
+          --padding-start: 0.5rem;
+          --padding-end: 0.5rem;
+          --padding-top: 0.5rem;
+          --padding-bottom: 0.5rem;
+          font-size: 1.5rem;
+          min-width: 40px;
+          min-height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid transparent;
+          transition: border 0.2s, background 0.2s;
+          &.active,
+          &:focus {
+            --background: #1a3cff;
+            --color: #fff;
+            border: 2px solid #1a3cff;
+          }
+        }
+        .sort-select {
+          min-width: 140px;
+          margin-left: 0.5rem;
+          .mat-form-field-outline { color: #1a3cff; }
+          .mat-form-field-flex {
+            background: #fff;
+            border-radius: 8px;
+            border: 2px solid #1a3cff;
+            min-height: 40px;
+            align-items: center;
+          }
+          .mat-form-field-label,
+          .mat-select-value {
+            color: #1a3cff !important;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+          }
+          .mat-select-arrow { color: #1a3cff; }
+        }
       }
     }
   }
@@ -44,8 +87,6 @@
     align-items: center;
     gap: 6px;
     transition: color 0.2s;
-  }
-  .brand-more-link:hover {
-    color: var(--ion-color-primary, #1a3cff);
+    &:hover { color: var(--ion-color-primary, #1a3cff); }
   }
 }
