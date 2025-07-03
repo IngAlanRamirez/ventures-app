@@ -9,7 +9,7 @@
       <mat-form-field appearance="outline" class="sort-select">
         <mat-label>Sort By</mat-label>
         <mat-select
-          [ngModel]="currentSortValue"
+          [ngModel]="currentSortValue()"
           (ngModelChange)="onSortChange($event)"
         >
           <mat-option value="nombreMarca-asc">Nombre A-Z</mat-option>

@@ -34,13 +34,13 @@ export class BrandComponent {
   brands = signal<MarcaMenu[]>([]);
   loading = signal(false);
   error = signal<any>(null);
-  sortBy = 'nombreMarca';
-  sortOrder = 'asc';
+  sortBy = signal('nombreMarca');
+  sortOrder = signal('asc');
 
-  // Getter para obtener el valor actual del select
-  get currentSortValue(): string {
-    return `${this.sortBy}-${this.sortOrder}`;
-  }
+  // Computed signal para obtener el valor actual del select
+  currentSortValue = computed(() => {
+    return `${this.sortBy()}-${this.sortOrder()}`;
+  });
 
   // Estado para controlar cuántos elementos mostrar
   private readonly initialDisplayCount = 7;
@@ -50,12 +50,22 @@ export class BrandComponent {
   displayedBrands = computed(() => {
     const allBrands = [...this.brands()]; // Crear copia para no mutar el original
 
-    // Ordenar las marcas
-    const sortedBrands = allBrands.sort((a, b) => {
+    // Determinar qué elementos mostrar primero
+    let brandsToSort: MarcaMenu[];
+    if (this.showAll() || allBrands.length <= this.initialDisplayCount) {
+      // Mostrar todos los elementos
+      brandsToSort = allBrands;
+    } else {
+      // Mostrar solo los primeros 7 elementos (sin ordenar aún)
+      brandsToSort = allBrands.slice(0, this.initialDisplayCount);
+    }
+
+    // Ordenar los elementos seleccionados
+    const sortedBrands = brandsToSort.sort((a, b) => {
       let valueA: string;
       let valueB: string;
 
-      if (this.sortBy === 'nombreMarca') {
+      if (this.sortBy() === 'nombreMarca') {
         valueA = a.nombreMarca.toLowerCase();
         valueB = b.nombreMarca.toLowerCase();
       } else {
@@ -63,18 +73,14 @@ export class BrandComponent {
         valueB = b.descripcion.toLowerCase();
       }
 
-      if (this.sortOrder === 'asc') {
+      if (this.sortOrder() === 'asc') {
         return valueA.localeCompare(valueB);
       } else {
         return valueB.localeCompare(valueA);
       }
     });
 
-    // Aplicar límite de visualización
-    if (this.showAll() || sortedBrands.length <= this.initialDisplayCount) {
-      return sortedBrands;
-    }
-    return sortedBrands.slice(0, this.initialDisplayCount);
+    return sortedBrands;
   });
 
   // Computed signal para saber si hay más elementos
@@ -111,7 +117,7 @@ export class BrandComponent {
   // Método para cambiar el criterio de ordenamiento
   onSortChange(sortValue: string) {
     const [field, order] = sortValue.split('-');
-    this.sortBy = field;
-    this.sortOrder = order;
+    this.sortBy.set(field);
+    this.sortOrder.set(order);
   }
 }
