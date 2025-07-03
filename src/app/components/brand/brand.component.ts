@@ -1,4 +1,4 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, effect, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { CouponComponent } from '../coupon/coupon.component';
@@ -37,11 +37,36 @@ export class BrandComponent {
   sortBy = 'asc';
   sortOrder = 'asc';
 
+  // Estado para controlar cuántos elementos mostrar
+  private readonly initialDisplayCount = 7;
+  showAll = signal(false);
+
+  // Computed signal para obtener las marcas a mostrar
+  displayedBrands = computed(() => {
+    const allBrands = this.brands();
+    if (this.showAll() || allBrands.length <= this.initialDisplayCount) {
+      return allBrands;
+    }
+    return allBrands.slice(0, this.initialDisplayCount);
+  });
+
+  // Computed signal para saber si hay más elementos
+  hasMore = computed(() => {
+    return this.brands().length > this.initialDisplayCount && !this.showAll();
+  });
+
   constructor() {
     addIcons({ listOutline, gridOutline, chevronForwardOutline });
 
     effect(() => {
-      this.brands.set(this.store.selectSignal(BrandsSelectors.selectBrands)());
+      const newBrands = this.store.selectSignal(BrandsSelectors.selectBrands)();
+
+      // Si cambian las marcas, resetear el estado showAll
+      if (JSON.stringify(this.brands()) !== JSON.stringify(newBrands)) {
+        this.showAll.set(false);
+      }
+
+      this.brands.set(newBrands);
       this.loading.set(
         this.store.selectSignal(BrandsSelectors.selectBrandsLoading)()
       );
@@ -49,5 +74,10 @@ export class BrandComponent {
         this.store.selectSignal(BrandsSelectors.selectBrandsError)()
       );
     });
+  }
+
+  // Método para mostrar todas las marcas
+  showAllBrands() {
+    this.showAll.set(true);
   }
 }

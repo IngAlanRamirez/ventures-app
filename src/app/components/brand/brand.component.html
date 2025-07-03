@@ -30,7 +30,7 @@
   </div>
   } @else {
   <div class="brand-grid">
-    @for (brand of brands(); track brand.idItem) {
+    @for (brand of displayedBrands(); track brand.idItem) {
     <app-coupon
       [logo]="brand.imagen"
       [brand]="brand.nombreMarca"
@@ -40,11 +40,11 @@
     ></app-coupon>
     }
   </div>
-  }
-
+  } @if (hasMore()) {
   <div class="brand-more">
-    <a href="#" class="brand-more-link">
+    <button class="brand-more-link" (click)="showAllBrands()">
       MORE INSTANT COUPONS <ion-icon name="chevron-forward-outline"></ion-icon>
-    </a>
+    </button>
   </div>
+  }
 </div>
