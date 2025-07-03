@@ -5,6 +5,7 @@ import { TableComponent } from '../components/table/table.component';
 import { MenuComponent } from '../components/menu/menu.component';
 import { BrandComponent } from '../components/brand/brand.component';
 import { ListBrandsComponent } from '../components/list-brands/list-brands.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ import { ListBrandsComponent } from '../components/list-brands/list-brands.compo
     MenuComponent,
     BrandComponent,
     ListBrandsComponent,
+    FooterComponent,
   ],
 })
 export class HomePage {
