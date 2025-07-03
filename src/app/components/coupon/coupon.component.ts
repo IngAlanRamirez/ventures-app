@@ -26,7 +26,6 @@ import { cashOutline, arrowForwardOutline } from 'ionicons/icons';
     IonCardContent,
     IonIcon,
   ],
-  standalone: true,
 })
 export class CouponComponent implements OnInit {
   @Input() logo = '';

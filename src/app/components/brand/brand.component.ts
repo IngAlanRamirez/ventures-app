@@ -25,7 +25,6 @@ import { MatOptionModule } from '@angular/material/core';
     MatOptionModule,
     FormsModule,
   ],
-  standalone: true,
 })
 export class BrandComponent {
   coupons = [

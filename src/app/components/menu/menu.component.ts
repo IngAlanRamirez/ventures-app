@@ -6,7 +6,6 @@ import { IonTitle, IonButton } from '@ionic/angular/standalone';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   imports: [IonTitle, IonButton],
-  standalone: true,
 })
 export class MenuComponent implements OnInit {
   categories = [
