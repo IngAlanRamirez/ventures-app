@@ -28,6 +28,7 @@ import * as CategoriesSelectors from '../store/categories/categories.selectors';
 export class HomePage {
   private store = inject(Store);
   categories = signal<CategoriaMenu[]>([]);
+  selectedCategory = signal<CategoriaMenu | null>(null);
   loading = signal(false);
   error = signal<any>(null);
 
@@ -35,6 +36,9 @@ export class HomePage {
     effect(() => {
       this.categories.set(
         this.store.selectSignal(CategoriesSelectors.selectCategories)()
+      );
+      this.selectedCategory.set(
+        this.store.selectSignal(CategoriesSelectors.selectSelectedCategory)()
       );
       this.loading.set(
         this.store.selectSignal(CategoriesSelectors.selectCategoriesLoading)()
@@ -47,5 +51,13 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.store.dispatch(CategoriesActions.loadCategories());
+  }
+
+  selectCategory(category: CategoriaMenu) {
+    this.store.dispatch(CategoriesActions.selectCategory({ category }));
+  }
+
+  selectDefaultCategory() {
+    this.store.dispatch(CategoriesActions.selectDefaultCategory());
   }
 }

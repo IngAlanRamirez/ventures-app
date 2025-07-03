@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { IonTitle, IonButton } from '@ionic/angular/standalone';
+import { Store } from '@ngrx/store';
 import { CategoriaMenu } from 'src/app/models/categoria-menu';
+import * as CategoriesActions from 'src/app/store/categories/categories.actions';
 
 @Component({
   selector: 'app-menu',
@@ -10,13 +12,13 @@ import { CategoriaMenu } from 'src/app/models/categoria-menu';
 })
 export class MenuComponent implements OnInit {
   @Input() categories: CategoriaMenu[] = [];
-  activeCategory = this.categories[0]?.descripcion || '';
+  private store = inject(Store);
 
   constructor() {}
 
   ngOnInit() {}
 
-  setActiveCategory(category: string) {
-    this.activeCategory = category;
+  onCategoryClick(category: CategoriaMenu) {
+    this.store.dispatch(CategoriesActions.selectCategory({ category }));
   }
 }

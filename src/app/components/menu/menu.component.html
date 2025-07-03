@@ -1,13 +1,13 @@
 <div class="menu-container">
   <ion-title class="menu-title">Explore Instant Coupons</ion-title>
   <div class="menu-categories">
-    @for (category of categories; track category) {
+    @for (category of categories; track category.idMenu) {
     <ion-button
       fill="outline"
       shape="round"
       class="menu-btn"
-      [class.active]="activeCategory === category.descripcion"
-      (click)="setActiveCategory(category.descripcion)"
+      [class.active]="category.isActive"
+      (click)="onCategoryClick(category)"
     >
       {{ category.descripcion }}
     </ion-button>

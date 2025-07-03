@@ -12,3 +12,12 @@ export const loadCategoriesFailure = createAction(
   '[Categories] Load Categories Failure',
   props<{ error: any }>()
 );
+
+export const selectCategory = createAction(
+  '[Categories] Select Category',
+  props<{ category: CategoriaMenu }>()
+);
+
+export const selectDefaultCategory = createAction(
+  '[Categories] Select Default Category'
+);

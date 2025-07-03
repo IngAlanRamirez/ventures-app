@@ -12,10 +12,13 @@ export class CategoriesEffects {
       mergeMap(() =>
         this.categoriesService.getCategories().pipe(
           map((data: any) => {
-            const categories = (data.categorias || []).map((cat: any) => ({
-              ...cat,
-              descripcion: cat.descripcion || cat.descripción || '',
-            }));
+            const categories = (data.categorias || []).map(
+              (cat: any, index: number) => ({
+                ...cat,
+                descripcion: cat.descripcion || cat.descripción || '',
+                isActive: index === 0, // Solo la primera categoría está activa inicialmente
+              })
+            );
             return CategoriesActions.loadCategoriesSuccess({ categories });
           }),
           catchError((error) =>
