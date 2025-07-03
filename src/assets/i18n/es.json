@@ -1,0 +1,61 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "more": "MÁS",
+    "getOffer": "Ver Oferta",
+    "getCoupon": "Obtener Cupón",
+    "viewOffers": "Ver Ofertas"
+  },
+  "header": {
+    "welcome": "¡Bienvenido de nuevo!",
+    "login": "INICIAR SESIÓN",
+    "linkCard": "VINCULAR TARJETA"
+  },
+  "menu": {
+    "title": "Explora Cupones Instantáneos"
+  },
+  "brand": {
+    "title": "Cupones Instantáneos Destacados",
+    "sortBy": "Ordenar Por",
+    "nameAZ": "Nombre A-Z",
+    "nameZA": "Nombre Z-A",
+    "descriptionAZ": "Descripción A-Z",
+    "descriptionZA": "Descripción Z-A",
+    "moreInstantCoupons": "MÁS CUPONES INSTANTÁNEOS",
+    "loadingBrands": "Cargando marcas...",
+    "errorLoadingBrands": "Error al cargar marcas",
+    "noBrandsAvailable": "No hay marcas disponibles para esta categoría"
+  },
+  "listBrands": {
+    "title": "Desbloquea todo el poder de",
+    "linkCard": "Vincula tu tarjeta",
+    "selectCategory": "Selecciona una categoría para ver ofertas exclusivas"
+  },
+  "table": {
+    "title": "Vincula tu tarjeta comercial",
+    "subtitle": "para desbloquear ofertas de cashback",
+    "noCardRequired": "No requiere vincular tarjeta",
+    "linkCardToGet": "Vincula tu tarjeta para obtener",
+    "linkCard": "Vincula tu tarjeta",
+    "features": {
+      "instantCoupons": "Cupones Instantáneos",
+      "visaBenefits": "Acceso completo a beneficios de Visa Savings Edge",
+      "cashbackTracking": "Seguimiento de cashback",
+      "merchantLocation": "Búsqueda de ubicación de comerciantes",
+      "cashbackOffers": "Ofertas de cashback"
+    }
+  },
+  "footer": {
+    "contactSupport": "Contactar Soporte",
+    "termsConditions": "Términos y Condiciones",
+    "privacyPolicy": "Política de Privacidad",
+    "cookiePolicy": "Política de Cookies"
+  },
+  "login": {
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "login": "Iniciar Sesión",
+    "cancel": "Cancelar"
+  }
+}

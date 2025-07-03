@@ -1,4 +1,6 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 export interface TranslationData {
   [key: string]: string | TranslationData;
@@ -10,6 +12,8 @@ export interface TranslationData {
 export class TranslationService {
   private currentLanguage = signal<string>('en');
   private translations = signal<{ [language: string]: TranslationData }>({});
+  private httpClient = inject(HttpClient);
+  private isLoaded = signal<boolean>(false);
 
   // Computed signal para obtener las traducciones del idioma actual
   currentTranslations = computed(() => {
@@ -32,17 +36,33 @@ export class TranslationService {
   setLanguage(language: string) {
     this.currentLanguage.set(language);
     localStorage.setItem('selectedLanguage', language);
+    // Solo recargar si es necesario
+    if (!this.translations()[language]) {
+      this.loadTranslations();
+    }
+  }
+
+  // Verificar si las traducciones están cargadas
+  isTranslationsLoaded(): boolean {
+    return this.isLoaded() && !!this.translations()[this.currentLanguage()];
   }
 
   // Obtener traducción por clave
   translate(key: string): string {
+    // Si las traducciones no están cargadas, devolver la clave sin warning
+    if (!this.isTranslationsLoaded()) {
+      return key;
+    }
+
     const keys = key.split('.');
     let result: any = this.currentTranslations();
 
     for (const k of keys) {
       result = result[k];
       if (result === undefined) {
-        console.warn(`Translation key not found: ${key}`);
+        console.warn(
+          `Translation key not found: ${key} for language: ${this.currentLanguage()}`
+        );
         return key; // Devolver la clave si no se encuentra la traducción
       }
     }
@@ -50,63 +70,48 @@ export class TranslationService {
     return result as string;
   }
 
-  // Cargar traducciones (simulando carga de archivos JSON)
+  // Cargar traducciones desde archivos JSON
   private loadTranslations() {
-    const translations = {
+    // Inicializar con traducciones por defecto como fallback
+    this.setDefaultTranslations();
+
+    const supportedLanguages = ['en', 'es'];
+
+    const loadRequests = supportedLanguages.map((language) =>
+      this.httpClient.get<TranslationData>(`/assets/i18n/${language}.json`)
+    );
+
+    forkJoin(loadRequests).subscribe({
+      next: (results) => {
+        const translations: { [language: string]: TranslationData } = {};
+        supportedLanguages.forEach((language, index) => {
+          translations[language] = results[index];
+        });
+
+        this.translations.set(translations);
+        this.isLoaded.set(true);
+        console.log('Translations loaded successfully');
+      },
+      error: (error) => {
+        console.error('Error loading translations:', error);
+        // Mantener las traducciones por defecto si hay error
+        this.isLoaded.set(true);
+      },
+    });
+  }
+
+  // Establecer traducciones por defecto como fallback
+  private setDefaultTranslations() {
+    const defaultTranslations = {
       en: {
-        common: {
-          loading: 'Loading...',
-          error: 'Error',
-          more: 'MORE',
-          getOffer: 'Get Offer',
-          getCoupon: 'Get Coupon',
-          viewOffers: 'View Offers',
-        },
+        common: { loading: 'Loading...', error: 'Error', more: 'MORE' },
         header: {
           welcome: 'Welcome back!',
           login: 'LOGIN',
           linkCard: 'LINK YOUR CARD',
         },
-        menu: {
-          title: 'Explore Instant Coupons',
-        },
-        brand: {
-          title: 'Featured Instant Coupons',
-          sortBy: 'Sort By',
-          nameAZ: 'Name A-Z',
-          nameZA: 'Name Z-A',
-          descriptionAZ: 'Description A-Z',
-          descriptionZA: 'Description Z-A',
-          moreInstantCoupons: 'MORE INSTANT COUPONS',
-          loadingBrands: 'Loading brands...',
-          errorLoadingBrands: 'Error loading brands',
-          noBrandsAvailable: 'No brands available for this category',
-        },
-        listBrands: {
-          title: 'Unlock the full power of',
-          linkCard: 'Link your card',
-          selectCategory: 'Select a category to see exclusive offers',
-        },
-        table: {
-          title: 'Link your bussiness card',
-          subtitle: 'to unlock cashback offers',
-          noCardRequired: 'No card linking required',
-          linkCardToGet: 'Link your card to get',
-          linkCard: 'Link your card',
-          features: {
-            instantCoupons: 'Instant Coupons',
-            visaBenefits: 'Full access to Visa Savings Edge benefits',
-            cashbackTracking: 'Cashback tracking',
-            merchantLocation: 'Merchant location search',
-            cashbackOffers: 'Cashback offers',
-          },
-        },
-        footer: {
-          contactSupport: 'Contact Support',
-          termsConditions: 'Terms and Conditions',
-          privacyPolicy: 'Privacy Policy',
-          cookiePolicy: 'Cookie Policy',
-        },
+        menu: { title: 'Explore Instant Coupons' },
+        brand: { title: 'Featured Instant Coupons', sortBy: 'Sort By' },
         login: {
           email: 'Email',
           password: 'Password',
@@ -115,59 +120,16 @@ export class TranslationService {
         },
       },
       es: {
-        common: {
-          loading: 'Cargando...',
-          error: 'Error',
-          more: 'MÁS',
-          getOffer: 'Ver Oferta',
-          getCoupon: 'Obtener Cupón',
-          viewOffers: 'Ver Ofertas',
-        },
+        common: { loading: 'Cargando...', error: 'Error', more: 'MÁS' },
         header: {
           welcome: '¡Bienvenido de nuevo!',
           login: 'INICIAR SESIÓN',
           linkCard: 'VINCULAR TARJETA',
         },
-        menu: {
-          title: 'Explora Cupones Instantáneos',
-        },
+        menu: { title: 'Explora Cupones Instantáneos' },
         brand: {
           title: 'Cupones Instantáneos Destacados',
           sortBy: 'Ordenar Por',
-          nameAZ: 'Nombre A-Z',
-          nameZA: 'Nombre Z-A',
-          descriptionAZ: 'Descripción A-Z',
-          descriptionZA: 'Descripción Z-A',
-          moreInstantCoupons: 'MÁS CUPONES INSTANTÁNEOS',
-          loadingBrands: 'Cargando marcas...',
-          errorLoadingBrands: 'Error al cargar marcas',
-          noBrandsAvailable: 'No hay marcas disponibles para esta categoría',
-        },
-        listBrands: {
-          title: 'Desbloquea todo el poder de',
-          linkCard: 'Vincula tu tarjeta',
-          selectCategory:
-            'Selecciona una categoría para ver ofertas exclusivas',
-        },
-        table: {
-          title: 'Vincula tu tarjeta comercial',
-          subtitle: 'para desbloquear ofertas de cashback',
-          noCardRequired: 'No requiere vincular tarjeta',
-          linkCardToGet: 'Vincula tu tarjeta para obtener',
-          linkCard: 'Vincula tu tarjeta',
-          features: {
-            instantCoupons: 'Cupones Instantáneos',
-            visaBenefits: 'Acceso completo a beneficios de Visa Savings Edge',
-            cashbackTracking: 'Seguimiento de cashback',
-            merchantLocation: 'Búsqueda de ubicación de comerciantes',
-            cashbackOffers: 'Ofertas de cashback',
-          },
-        },
-        footer: {
-          contactSupport: 'Contactar Soporte',
-          termsConditions: 'Términos y Condiciones',
-          privacyPolicy: 'Política de Privacidad',
-          cookiePolicy: 'Política de Cookies',
         },
         login: {
           email: 'Correo Electrónico',
@@ -178,6 +140,6 @@ export class TranslationService {
       },
     };
 
-    this.translations.set(translations);
+    this.translations.set(defaultTranslations);
   }
 }
