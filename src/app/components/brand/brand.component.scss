@@ -37,7 +37,9 @@
         .sort-select {
           min-width: 140px;
           margin-left: 0.5rem;
-          .mat-form-field-outline { color: #1a3cff; }
+          .mat-form-field-outline {
+            color: #1a3cff;
+          }
           .mat-form-field-flex {
             background: #fff;
             border-radius: 8px;
@@ -53,7 +55,9 @@
             letter-spacing: 0.01em;
             text-transform: uppercase;
           }
-          .mat-select-arrow { color: #1a3cff; }
+          .mat-select-arrow {
+            color: #1a3cff;
+          }
         }
       }
     }
@@ -65,6 +69,29 @@
     color: #222;
     letter-spacing: -0.01em;
   }
+  .brand-loading,
+  .brand-error,
+  .brand-empty {
+    margin: 3rem 0;
+    padding: 2rem;
+    text-align: center;
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+      color: #666;
+    }
+  }
+
+  .brand-error p {
+    color: var(--ion-color-danger);
+  }
+
+  .brand-empty p {
+    color: #999;
+  }
+
   .brand-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -87,6 +114,8 @@
     align-items: center;
     gap: 6px;
     transition: color 0.2s;
-    &:hover { color: var(--ion-color-primary, #1a3cff); }
+    &:hover {
+      color: var(--ion-color-primary, #1a3cff);
+    }
   }
 }

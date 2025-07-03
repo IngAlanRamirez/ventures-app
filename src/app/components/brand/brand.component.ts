@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { CouponComponent } from '../coupon/coupon.component';
@@ -11,6 +11,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { Store } from '@ngrx/store';
+import { MarcaMenu } from '../../models/marca-menu';
+import * as BrandsSelectors from '../../store/brands/brands.selectors';
 
 @Component({
   selector: 'app-brand',
@@ -27,27 +30,24 @@ import { MatOptionModule } from '@angular/material/core';
   ],
 })
 export class BrandComponent {
-  coupons = [
-    {
-      logo: 'https://1000logos.net/wp-content/uploads/2021/05/Google-AdWords-logo.png',
-      brand: 'Google Ads',
-      title: 'Get $500 in Google ad spend',
-      subtitle: 'Google Ads',
-      action: 'Get Coupon',
-    },
-    {
-      logo: 'https://1000logos.net/wp-content/uploads/2020/02/National-Car-Rental-Logo.png',
-      brand: 'National',
-      title: 'Save 5% on car rentals',
-      subtitle: 'National',
-      action: 'Get Coupon',
-    },
-    // ...agrega más objetos según la imagen...
-  ];
+  private store = inject(Store);
+  brands = signal<MarcaMenu[]>([]);
+  loading = signal(false);
+  error = signal<any>(null);
   sortBy = 'asc';
   sortOrder = 'asc';
 
   constructor() {
     addIcons({ listOutline, gridOutline, chevronForwardOutline });
+
+    effect(() => {
+      this.brands.set(this.store.selectSignal(BrandsSelectors.selectBrands)());
+      this.loading.set(
+        this.store.selectSignal(BrandsSelectors.selectBrandsLoading)()
+      );
+      this.error.set(
+        this.store.selectSignal(BrandsSelectors.selectBrandsError)()
+      );
+    });
   }
 }

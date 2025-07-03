@@ -16,4 +16,9 @@ export class BrandsService {
   getBrands(): Observable<ApiResponse> {
     return this.apiRequest.get<ApiResponse>(this.brandsUrl);
   }
+
+  getBrandsByCategory(categoryId: number): Observable<ApiResponse> {
+    const url = `${this.brandsUrl}/${categoryId}`;
+    return this.apiRequest.get<ApiResponse>(url);
+  }
 }

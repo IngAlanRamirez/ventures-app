@@ -1,6 +1,8 @@
 <div class="brand-container">
   <div class="brand-title-options">
-    <h2 class="brand-title">Featured Instant Coupons (200)</h2>
+    <h2 class="brand-title">
+      Featured Instant Coupons ({{ brands().length }})
+    </h2>
     <div class="options">
       <ion-button><ion-icon name="list-outline"></ion-icon></ion-button>
       <ion-button><ion-icon name="grid-outline"></ion-icon></ion-button>
@@ -13,17 +15,33 @@
       </mat-form-field>
     </div>
   </div>
+
+  @if (loading()) {
+  <div class="brand-loading">
+    <p>Cargando marcas...</p>
+  </div>
+  } @else if (error()) {
+  <div class="brand-error">
+    <p>Error al cargar marcas: {{ error() }}</p>
+  </div>
+  } @else if (brands().length === 0) {
+  <div class="brand-empty">
+    <p>No hay marcas disponibles para esta categoría</p>
+  </div>
+  } @else {
   <div class="brand-grid">
-    @for (coupon of coupons; track coupon) {
+    @for (brand of brands(); track brand.idItem) {
     <app-coupon
-      [logo]="coupon.logo"
-      [brand]="coupon.brand"
-      [title]="coupon.title"
-      [action]="coupon.action"
-      [subtitle]="coupon.subtitle"
+      [logo]="brand.imagen"
+      [brand]="brand.nombreMarca"
+      [title]="brand.descripcion"
+      [action]="'Ver ofertas'"
+      [subtitle]="brand.nombreMarca"
     ></app-coupon>
     }
   </div>
+  }
+
   <div class="brand-more">
     <a href="#" class="brand-more-link">
       MORE INSTANT COUPONS <ion-icon name="chevron-forward-outline"></ion-icon>
