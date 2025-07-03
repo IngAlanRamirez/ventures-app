@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed, effect } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../components/header/header.component';
 import { TableComponent } from '../components/table/table.component';
@@ -6,9 +6,10 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { BrandComponent } from '../components/brand/brand.component';
 import { ListBrandsComponent } from '../components/list-brands/list-brands.component';
 import { FooterComponent } from '../components/footer/footer.component';
-import { CategoriesService } from '../services/categories.service';
+import { Store } from '@ngrx/store';
 import { CategoriaMenu } from '../models/categoria-menu';
-import { ApiResponse } from '../models/api-response';
+import * as CategoriesActions from '../store/categories/categories.actions';
+import * as CategoriesSelectors from '../store/categories/categories.selectors';
 
 @Component({
   selector: 'app-home',
@@ -25,29 +26,26 @@ import { ApiResponse } from '../models/api-response';
   ],
 })
 export class HomePage {
-  apiCategories = inject(CategoriesService);
-  categories: CategoriaMenu[] = [];
-  constructor() {}
+  private store = inject(Store);
+  categories = signal<CategoriaMenu[]>([]);
+  loading = signal(false);
+  error = signal<any>(null);
 
-  ionViewWillEnter() {
-    console.log('HomePage: ionViewWillEnter');
-    this.loadCategories();
+  constructor() {
+    effect(() => {
+      this.categories.set(
+        this.store.selectSignal(CategoriesSelectors.selectCategories)()
+      );
+      this.loading.set(
+        this.store.selectSignal(CategoriesSelectors.selectCategoriesLoading)()
+      );
+      this.error.set(
+        this.store.selectSignal(CategoriesSelectors.selectCategoriesError)()
+      );
+    });
   }
 
-  loadCategories() {
-    this.apiCategories.getCategories().subscribe(
-      (data: ApiResponse) => {
-        if (data.categorias && data.categorias.length > 0) {
-          this.categories = data.categorias.map((cat: any) => ({
-            ...cat,
-            descripcion: cat.descripcion || cat.descripción || '',
-          }));
-        }
-      },
-      (error) => {
-        console.error('Error fetching categories:', error);
-        this.categories = [];
-      }
-    );
+  ionViewWillEnter() {
+    this.store.dispatch(CategoriesActions.loadCategories());
   }
 }
