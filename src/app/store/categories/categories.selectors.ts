@@ -20,6 +20,6 @@ export const selectCategoriesError = createSelector(
 );
 
 export const selectSelectedCategory = createSelector(
-  selectCategoriesState,
-  (state) => state.selectedCategory
+  selectCategories,
+  (categories) => categories.find((cat) => cat.isActive) || null
 );

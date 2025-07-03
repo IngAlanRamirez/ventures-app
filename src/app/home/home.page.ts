@@ -56,8 +56,4 @@ export class HomePage {
   selectCategory(category: CategoriaMenu) {
     this.store.dispatch(CategoriesActions.selectCategory({ category }));
   }
-
-  selectDefaultCategory() {
-    this.store.dispatch(CategoriesActions.selectDefaultCategory());
-  }
 }
