@@ -1,0 +1,50 @@
+:host {
+  max-width: 260px;
+  #coupon-card {
+    margin: 0;
+    padding: 0;
+
+    img {
+      background: var(--ion-color-medium);
+      padding: 1rem;
+    }
+    ion-card-content {
+      padding: 1rem 2rem;
+    }
+
+    ion-card-header {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .chip-container {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      margin-top: -19px;
+      z-index: 1;
+      position: relative;
+      padding: 0 2rem;
+    }
+
+    ion-chip {
+      font-weight: 600;
+      font-size: 1rem;
+      --background: var(--ion-color-warning);
+      --color: #222;
+      margin: 0;
+    }
+
+    .coupon-action {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2rem;
+    }
+  }
+}
