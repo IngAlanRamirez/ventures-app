@@ -8,9 +8,14 @@
       <ion-button><ion-icon name="grid-outline"></ion-icon></ion-button>
       <mat-form-field appearance="outline" class="sort-select">
         <mat-label>Sort By</mat-label>
-        <mat-select [(ngModel)]="sortOrder">
-          <mat-option value="asc">Ascendente</mat-option>
-          <mat-option value="desc">Descendente</mat-option>
+        <mat-select
+          [ngModel]="currentSortValue"
+          (ngModelChange)="onSortChange($event)"
+        >
+          <mat-option value="nombreMarca-asc">Nombre A-Z</mat-option>
+          <mat-option value="nombreMarca-desc">Nombre Z-A</mat-option>
+          <mat-option value="descripcion-asc">Descripción A-Z</mat-option>
+          <mat-option value="descripcion-desc">Descripción Z-A</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

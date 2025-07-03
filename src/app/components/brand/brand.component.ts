@@ -34,20 +34,47 @@ export class BrandComponent {
   brands = signal<MarcaMenu[]>([]);
   loading = signal(false);
   error = signal<any>(null);
-  sortBy = 'asc';
+  sortBy = 'nombreMarca';
   sortOrder = 'asc';
+
+  // Getter para obtener el valor actual del select
+  get currentSortValue(): string {
+    return `${this.sortBy}-${this.sortOrder}`;
+  }
 
   // Estado para controlar cuántos elementos mostrar
   private readonly initialDisplayCount = 7;
   showAll = signal(false);
 
-  // Computed signal para obtener las marcas a mostrar
+  // Computed signal para obtener las marcas a mostrar (ordenadas)
   displayedBrands = computed(() => {
-    const allBrands = this.brands();
-    if (this.showAll() || allBrands.length <= this.initialDisplayCount) {
-      return allBrands;
+    const allBrands = [...this.brands()]; // Crear copia para no mutar el original
+
+    // Ordenar las marcas
+    const sortedBrands = allBrands.sort((a, b) => {
+      let valueA: string;
+      let valueB: string;
+
+      if (this.sortBy === 'nombreMarca') {
+        valueA = a.nombreMarca.toLowerCase();
+        valueB = b.nombreMarca.toLowerCase();
+      } else {
+        valueA = a.descripcion.toLowerCase();
+        valueB = b.descripcion.toLowerCase();
+      }
+
+      if (this.sortOrder === 'asc') {
+        return valueA.localeCompare(valueB);
+      } else {
+        return valueB.localeCompare(valueA);
+      }
+    });
+
+    // Aplicar límite de visualización
+    if (this.showAll() || sortedBrands.length <= this.initialDisplayCount) {
+      return sortedBrands;
     }
-    return allBrands.slice(0, this.initialDisplayCount);
+    return sortedBrands.slice(0, this.initialDisplayCount);
   });
 
   // Computed signal para saber si hay más elementos
@@ -79,5 +106,12 @@ export class BrandComponent {
   // Método para mostrar todas las marcas
   showAllBrands() {
     this.showAll.set(true);
+  }
+
+  // Método para cambiar el criterio de ordenamiento
+  onSortChange(sortValue: string) {
+    const [field, order] = sortValue.split('-');
+    this.sortBy = field;
+    this.sortOrder = order;
   }
 }
