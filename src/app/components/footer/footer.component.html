@@ -7,9 +7,11 @@
   </div>
   <div class="footer-lang">
     <ion-icon name="globe-outline"></ion-icon>
-    <select class="footer-select">
-      <option value="en" selected>English</option>
-      <option value="es">Spanish</option>
-    </select>
+    <mat-form-field appearance="outline" class="footer-select-mat">
+      <mat-select [(value)]="selectedLang">
+        <mat-option value="en">English</mat-option>
+        <mat-option value="es">Spanish</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 </footer>
