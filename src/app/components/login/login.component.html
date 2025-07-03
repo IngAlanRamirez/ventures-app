@@ -1,0 +1,28 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="avatar-container">
+      <img src="assets/icon/favicon.png" alt="Avatar" class="avatar-img" />
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" required />
+      </mat-form-field>
+      <div class="button-row">
+        <button mat-raised-button color="primary" type="submit">Login</button>
+        <button
+          mat-stroked-button
+          color="warn"
+          type="button"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

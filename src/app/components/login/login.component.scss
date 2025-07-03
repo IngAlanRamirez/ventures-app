@@ -1,0 +1,29 @@
+.login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  min-width: 300px;
+}
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e0e0e0;
+  background: #fff;
+}
+.full-width {
+  width: 100%;
+}
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
