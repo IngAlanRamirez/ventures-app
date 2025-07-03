@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   IonCard,
   IonCardContent,
@@ -29,6 +29,12 @@ import { cashOutline, arrowForwardOutline } from 'ionicons/icons';
   standalone: true,
 })
 export class CouponComponent implements OnInit {
+  @Input() logo = '';
+  @Input() brand = '';
+  @Input() title = '';
+  @Input() subtitle = '';
+  @Input() action = '';
+
   constructor() {
     addIcons({ cashOutline, arrowForwardOutline });
   }

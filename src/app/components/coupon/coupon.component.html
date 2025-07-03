@@ -1,8 +1,5 @@
 <ion-card id="coupon-card">
-  <img
-    alt="Silhouette of mountains"
-    src="https://1000logos.net/wp-content/uploads/2021/05/Google-AdWords-logo.png"
-  />
+  <img [src]="logo" [alt]="brand" />
   <div class="chip-container">
     <ion-chip>
       <ion-icon name="cash-outline"></ion-icon>
@@ -12,10 +9,10 @@
 
   <ion-card-content>
     <ion-card-header>
-      <ion-card-subtitle>National</ion-card-subtitle>
-      <ion-card-title>Save 5% on car rentals</ion-card-title>
+      <ion-card-subtitle>{{ subtitle }}</ion-card-subtitle>
+      <ion-card-title>{{ title }}</ion-card-title>
       <div class="coupon-action">
-        Get Coupon <ion-icon name="arrow-forward-outline"></ion-icon>
+        {{ action }} <ion-icon name="arrow-forward-outline"></ion-icon>
       </div>
     </ion-card-header>
   </ion-card-content>

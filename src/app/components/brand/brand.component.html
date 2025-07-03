@@ -1,0 +1,19 @@
+<div class="brand-container">
+  <h2 class="brand-title">Featured Instant Coupons (200)</h2>
+  <div class="brand-grid">
+    @for (coupon of coupons; track coupon) {
+    <app-coupon
+      [logo]="coupon.logo"
+      [brand]="coupon.brand"
+      [title]="coupon.title"
+      [action]="coupon.action"
+      [subtitle]="coupon.subtitle"
+    ></app-coupon>
+    }
+  </div>
+  <div class="brand-more">
+    <a href="#" class="brand-more-link">
+      MORE INSTANT COUPONS <ion-icon name="chevron-forward-outline"></ion-icon>
+    </a>
+  </div>
+</div>

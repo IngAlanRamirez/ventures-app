@@ -3,7 +3,7 @@ import { IonContent } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../components/header/header.component';
 import { TableComponent } from '../components/table/table.component';
 import { MenuComponent } from '../components/menu/menu.component';
-import { CouponComponent } from '../components/coupon/coupon.component';
+import { BrandComponent } from '../components/brand/brand.component';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,7 @@ import { CouponComponent } from '../components/coupon/coupon.component';
     HeaderComponent,
     TableComponent,
     MenuComponent,
-    CouponComponent,
+    BrandComponent,
   ],
 })
 export class HomePage {

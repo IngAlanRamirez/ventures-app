@@ -1,0 +1,39 @@
+:host {
+  .brand-container {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  .brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #222;
+    letter-spacing: -0.01em;
+  }
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem 1.5rem;
+    justify-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .brand-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .brand-more-link {
+    color: #222;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .brand-more-link:hover {
+    color: var(--ion-color-primary, #1a3cff);
+  }
+}
