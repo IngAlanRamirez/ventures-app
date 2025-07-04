@@ -9,6 +9,9 @@ Aplicación Ionic/Angular con fondo animado de esferas azules y funcionalidades 
 - **Estado reactivo**: NgRx para manejo de estado global
 - **Responsive design**: Adaptable a todos los dispositivos
 - **UI/UX avanzada**: Material Design + Ionic Components
+- **CORS Resiliente**: Fallback automático con datos mock
+- **Debugging Avanzado**: Logging detallado para troubleshooting
+- **Sin Dependencias Externas**: Funciona independientemente de APIs
 
 ## 🛠️ Tecnologías
 
@@ -70,6 +73,40 @@ npm run deploy:gh-pages
 1. Ve a **Settings** → **Pages** en tu repositorio
 2. Selecciona **GitHub Actions** como fuente
 3. El workflow se ejecutará automáticamente en cada push
+
+## 🛡️ Manejo de CORS y APIs Externas
+
+### 🔧 Características Implementadas:
+
+- **Interceptor CORS**: Detecta y reporta errores de CORS automáticamente
+- **Mock Data Service**: Datos de prueba como fallback cuando la API falla
+- **Logging Detallado**: Información de debugging en consola del navegador
+- **Fallback Automático**: La app funciona aunque la API externa no esté disponible
+
+### 🚨 Troubleshooting de APIs:
+
+**Problema**: "La app no muestra datos en GitHub Pages"
+
+**Causa**: Errores de CORS al acceder a APIs externas desde GitHub Pages
+
+**Solución Implementada**:
+1. La app detecta automáticamente errores de API
+2. Activa datos mock como fallback
+3. Muestra información de debugging en consola
+4. La aplicación funciona completamente con datos de prueba
+
+**Para ver el debugging**:
+1. Abre la app en: https://IngAlanRamirez.github.io/ventures-app/
+2. Abre Developer Tools (F12)
+3. Ve a la pestaña Console
+4. Observa los logs de APIs y fallbacks
+
+### 📊 Datos Mock Incluidos:
+
+- **Categorías**: 6 categorías (Smartphones, Laptops, Tablets, etc.)
+- **Marcas**: 8 marcas distribuidas por categorías
+- **Imágenes**: Placeholders generados automáticamente
+- **Estructura**: Compatible con la API original
 
 ## 📁 Estructura del Proyecto
 
