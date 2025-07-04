@@ -40,30 +40,14 @@ export class HomePage {
       const loading = this.store.selectSignal(CategoriesSelectors.selectCategoriesLoading)();
       const error = this.store.selectSignal(CategoriesSelectors.selectCategoriesError)();
       
-      console.log('🏠 Home Page Effect - Store State:', {
-        categories: storeCategories,
-        categoriesLength: storeCategories?.length || 0,
-        selectedCategory,
-        loading,
-        error
-      });
-      
       this.categories.set(storeCategories);
       this.selectedCategory.set(selectedCategory);
       this.loading.set(loading);
       this.error.set(error);
-      
-      console.log('🏠 Home Page - Signals Updated:', {
-        categoriesSignal: this.categories(),
-        selectedCategorySignal: this.selectedCategory(),
-        loadingSignal: this.loading(),
-        errorSignal: this.error() 
-      });
     });
   }
 
   ionViewWillEnter() {
-    console.log('🏠 Home Page - ionViewWillEnter: Dispatching loadCategories()');
     this.store.dispatch(CategoriesActions.loadCategories());
   }
 

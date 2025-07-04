@@ -18,7 +18,6 @@ export class CategoriesService {
   getCategories(): Observable<ApiResponse> {
     return this.apiRequest.get<ApiResponse>(this.categoriesUrl).pipe(
       catchError((error) => {
-        console.warn('⚠️ Categories API failed, using mock data:', error);
         return this.mockData.getCategories();
       })
     );
