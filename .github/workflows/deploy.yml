@@ -52,7 +52,7 @@ jobs:
     - name: Subir artefacto de build
       uses: actions/upload-pages-artifact@v3
       with:
-        path: 'dist/ventures-app'
+        path: 'www'
 
   # Job para desplegar a GitHub Pages
   deploy:

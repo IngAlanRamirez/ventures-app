@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy:gh-pages": "npm run build:gh-pages && npx angular-cli-ghpages --dir=dist/ventures-app",
+    "deploy:gh-pages": "npm run build:gh-pages && npx angular-cli-ghpages --dir=www",
     "check:deployment": "node scripts/check-deployment.js"
   },
   "private": true,
