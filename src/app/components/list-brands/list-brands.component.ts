@@ -52,11 +52,31 @@ export class ListBrandsComponent implements OnInit {
 
     effect(() => {
       const newBrands = this.store.selectSignal(BrandsSelectors.selectBrands)();
+      const loading = this.store.selectSignal(BrandsSelectors.selectBrandsLoading)();
+      const error = this.store.selectSignal(BrandsSelectors.selectBrandsError)();
+      
+      console.log('🏪 ListBrandsComponent Effect - Store State:', {
+        brands: newBrands,
+        brandsLength: newBrands?.length || 0,
+        loading,
+        error
+      });
 
       // Si las marcas cambiaron, actualizar y generar nueva selección aleatoria
       if (JSON.stringify(this.allBrands()) !== JSON.stringify(newBrands)) {
+        console.log('🔄 ListBrandsComponent: Brands changed, updating signals');
+        console.log('📊 Old brands:', this.allBrands());
+        console.log('🆕 New brands:', newBrands);
+        
         this.allBrands.set(newBrands);
-        this.randomBrands.set(this.generateRandomBrands(newBrands));
+        const randomSelection = this.generateRandomBrands(newBrands);
+        this.randomBrands.set(randomSelection);
+        
+        console.log('🎲 Random brands generated:', randomSelection);
+        console.log('📊 Final signals state:', {
+          allBrands: this.allBrands(),
+          randomBrands: this.randomBrands()
+        });
       }
     });
   }
