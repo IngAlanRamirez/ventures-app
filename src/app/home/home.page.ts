@@ -6,6 +6,7 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { BrandComponent } from '../components/brand/brand.component';
 import { ListBrandsComponent } from '../components/list-brands/list-brands.component';
 import { FooterComponent } from '../components/footer/footer.component';
+import { DebugComponent } from '../components/debug/debug.component';
 import { Store } from '@ngrx/store';
 import { CategoriaMenu } from '../models/categoria-menu';
 import * as CategoriesActions from '../store/categories/categories.actions';
@@ -23,6 +24,7 @@ import * as CategoriesSelectors from '../store/categories/categories.selectors';
     BrandComponent,
     ListBrandsComponent,
     FooterComponent,
+    DebugComponent,
   ],
 })
 export class HomePage {
