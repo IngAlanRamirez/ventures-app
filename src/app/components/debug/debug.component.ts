@@ -4,6 +4,9 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton } from 
 import { CategoriesService } from '../../services/categories.service';
 import { BrandsService } from '../../services/brands.service';
 import { MockDataService } from '../../services/mock-data.service';
+import { Store } from '@ngrx/store';
+import * as CategoriesSelectors from '../../store/categories/categories.selectors';
+import * as CategoriesActions from '../../store/categories/categories.actions';
 
 @Component({
   selector: 'app-debug',
@@ -21,6 +24,12 @@ import { MockDataService } from '../../services/mock-data.service';
         </ion-button>
         <ion-button (click)="testMockData()" fill="outline" color="success">
           Test Mock Data
+        </ion-button>
+        <ion-button (click)="testStore()" fill="outline" color="warning">
+          Test NgRx Store
+        </ion-button>
+        <ion-button (click)="loadCategoriesAction()" fill="outline" color="tertiary">
+          Dispatch Load Categories
         </ion-button>
         
         <div *ngIf="debugInfo" class="debug-info">
@@ -70,6 +79,7 @@ export class DebugComponent implements OnInit {
   private categoriesService = inject(CategoriesService);
   private brandsService = inject(BrandsService);
   private mockDataService = inject(MockDataService);
+  private store = inject(Store);
   
   debugInfo: any = null;
   errors: string[] = [];
@@ -157,5 +167,54 @@ export class DebugComponent implements OnInit {
         };
       }
     });
+  }
+  
+  testStore() {
+    console.log('🏪 Testing NgRx Store...');
+    this.errors = [];
+    this.debugInfo = null;
+    
+    const storeCategories = this.store.selectSignal(CategoriesSelectors.selectCategories)();
+    const storeLoading = this.store.selectSignal(CategoriesSelectors.selectCategoriesLoading)();
+    const storeError = this.store.selectSignal(CategoriesSelectors.selectCategoriesError)();
+    const selectedCategory = this.store.selectSignal(CategoriesSelectors.selectSelectedCategory)();
+    
+    console.log('📊 Store State:', {
+      categories: storeCategories,
+      loading: storeLoading,
+      error: storeError,
+      selectedCategory: selectedCategory
+    });
+    
+    this.debugInfo = {
+      type: 'NgRx Store State',
+      success: true,
+      data: {
+        categories: storeCategories,
+        categoriesCount: storeCategories?.length || 0,
+        loading: storeLoading,
+        error: storeError,
+        selectedCategory: selectedCategory
+      }
+    };
+  }
+  
+  loadCategoriesAction() {
+    console.log('🚀 Dispatching loadCategories action...');
+    this.errors = [];
+    this.debugInfo = null;
+    
+    this.store.dispatch(CategoriesActions.loadCategories());
+    
+    // Esperar y mostrar el resultado
+    setTimeout(() => {
+      this.testStore();
+    }, 2000);
+    
+    this.debugInfo = {
+      type: 'Action Dispatched',
+      success: true,
+      message: 'loadCategories() action dispatched. Check store state in 2 seconds.'
+    };
   }
 }

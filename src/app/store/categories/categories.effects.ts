@@ -9,21 +9,27 @@ export class CategoriesEffects {
   loadCategories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.loadCategories),
-      mergeMap(() =>
-        this.categoriesService.getCategories().pipe(
+      mergeMap(() => {
+        console.log('📦 CategoriesEffects: loadCategories action received');
+        return this.categoriesService.getCategories().pipe(
           map((data: any) => {
+            console.log('✅ CategoriesEffects: API response received:', data);
             const categories = (data.categorias || []).map((cat: any) => ({
               ...cat,
               descripcion: cat.descripcion || cat.descripción || '',
               isActive: false, // Inicialmente ninguna está activa
             }));
+            console.log('📊 CategoriesEffects: Categories processed:', categories);
+            console.log('🚀 CategoriesEffects: Dispatching loadCategoriesSuccess');
             return CategoriesActions.loadCategoriesSuccess({ categories });
           }),
-          catchError((error) =>
-            of(CategoriesActions.loadCategoriesFailure({ error }))
-          )
-        )
-      )
+          catchError((error) => {
+            console.error('❌ CategoriesEffects: API error:', error);
+            console.log('🚀 CategoriesEffects: Dispatching loadCategoriesFailure');
+            return of(CategoriesActions.loadCategoriesFailure({ error }));
+          })
+        );
+      })
     )
   );
 
@@ -32,9 +38,13 @@ export class CategoriesEffects {
     this.actions$.pipe(
       ofType(CategoriesActions.loadCategoriesSuccess),
       map(({ categories }) => {
+        console.log('🎆 CategoriesEffects: loadCategoriesSuccess received, auto-selecting first category');
+        console.log('📊 Categories received:', categories);
         if (categories.length > 0) {
+          console.log('🎯 Selecting first category:', categories[0]);
           return CategoriesActions.selectCategory({ category: categories[0] });
         }
+        console.log('⚠️ No categories to select');
         return { type: 'NO_ACTION' };
       })
     )
