@@ -25,7 +25,8 @@ export class BrandsService {
   }
 
   getBrandsByCategory(categoryId: number): Observable<ApiResponse> {
-    const url = `${this.brandsUrl}/${categoryId}`;
+    const url = `${this.brandsUrl}?idMenu=${categoryId}`;
+    console.log(`🏷️ Calling brands API with URL: ${url}`);
     return this.apiRequest.get<ApiResponse>(url).pipe(
       catchError((error) => {
         console.warn(`⚠️ API failed for category ${categoryId}, using mock data:`, error);

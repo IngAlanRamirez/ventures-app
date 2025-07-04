@@ -11,9 +11,11 @@ export class BrandsEffects {
   loadBrandsOnCategorySelection$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.selectCategory),
-      map(({ category }) =>
-        BrandsActions.loadBrandsByCategory({ categoryId: category.idMenu })
-      )
+      map(({ category }) => {
+        console.log('🏷️ BrandsEffects: Category selected, loading brands for:', category);
+        console.log('🔢 Loading brands for categoryId:', category.idMenu);
+        return BrandsActions.loadBrandsByCategory({ categoryId: category.idMenu });
+      })
     )
   );
 
@@ -21,22 +23,28 @@ export class BrandsEffects {
   loadBrandsByCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BrandsActions.loadBrandsByCategory),
-      mergeMap(({ categoryId }) =>
-        this.brandsService.getBrandsByCategory(categoryId).pipe(
+      mergeMap(({ categoryId }) => {
+        console.log('📦 BrandsEffects: loadBrandsByCategory action received for categoryId:', categoryId);
+        return this.brandsService.getBrandsByCategory(categoryId).pipe(
           map((data: any) => {
+            console.log('✅ BrandsEffects: Brands API response received:', data);
             const brands = (data.marcas || []).map((brand: any) => ({
               ...brand,
               nombreMarca: brand.nombreMarca || brand.nombre || '',
               descripcion: brand.descripcion || brand.descripción || '',
               imagen: brand.imagen || brand.logo || '',
             }));
+            console.log('📏 BrandsEffects: Brands processed:', brands.length, 'brands');
+            console.log('🚀 BrandsEffects: Dispatching loadBrandsByCategorySuccess');
             return BrandsActions.loadBrandsByCategorySuccess({ brands });
           }),
-          catchError((error) =>
-            of(BrandsActions.loadBrandsByCategoryFailure({ error }))
-          )
-        )
-      )
+          catchError((error) => {
+            console.error('❌ BrandsEffects: API error:', error);
+            console.log('🚀 BrandsEffects: Dispatching loadBrandsByCategoryFailure');
+            return of(BrandsActions.loadBrandsByCategoryFailure({ error }));
+          })
+        );
+      })
     )
   );
 
