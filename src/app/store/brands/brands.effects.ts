@@ -28,13 +28,19 @@ export class BrandsEffects {
         return this.brandsService.getBrandsByCategory(categoryId).pipe(
           map((data: any) => {
             console.log('✅ BrandsEffects: Brands API response received:', data);
-            const brands = (data.marcas || []).map((brand: any) => ({
-              ...brand,
+            console.log('🔍 Full API response structure for brands:', data);
+            const rawBrands = data.menuItems || data.marcas || [];
+            console.log('🔢 Raw brands extracted:', rawBrands.length, 'items');
+            console.log('🔎 First raw brand:', rawBrands[0]);
+            
+            const brands = rawBrands.map((brand: any) => ({
+              idItem: brand.idItem,
               nombreMarca: brand.nombreMarca || brand.nombre || '',
               descripcion: brand.descripcion || brand.descripción || '',
               imagen: brand.imagen || brand.logo || '',
             }));
             console.log('📏 BrandsEffects: Brands processed:', brands.length, 'brands');
+            console.log('🔎 First processed brand:', brands[0]);
             console.log('🚀 BrandsEffects: Dispatching loadBrandsByCategorySuccess');
             return BrandsActions.loadBrandsByCategorySuccess({ brands });
           }),
