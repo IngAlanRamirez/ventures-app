@@ -60,9 +60,6 @@ export class TranslationService {
     for (const k of keys) {
       result = result[k];
       if (result === undefined) {
-        console.warn(
-          `Translation key not found: ${key} for language: ${this.currentLanguage()}`
-        );
         return key; // Devolver la clave si no se encuentra la traducción
       }
     }
@@ -90,10 +87,8 @@ export class TranslationService {
 
         this.translations.set(translations);
         this.isLoaded.set(true);
-        console.log('Translations loaded successfully');
       },
       error: (error) => {
-        console.error('Error loading translations:', error);
         // Mantener las traducciones por defecto si hay error
         this.isLoaded.set(true);
       },
