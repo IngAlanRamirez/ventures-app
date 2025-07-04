@@ -9,38 +9,19 @@ import { MarcaMenu } from '../models/marca-menu';
 })
 export class MockDataService {
 
-  private mockCategories: CategoriaMenu[] = [
-    {
-      idMenu: 1,
-      descripcion: 'Smartphones',
-      isActive: true
-    },
-    {
-      idMenu: 2,
-      descripcion: 'Laptops',
-      isActive: true
-    },
-    {
-      idMenu: 3,
-      descripcion: 'Tablets',
-      isActive: true
-    },
-    {
-      idMenu: 4,
-      descripcion: 'Accesorios',
-      isActive: true
-    },
-    {
-      idMenu: 5,
-      descripcion: 'Audio',
-      isActive: true
-    },
-    {
-      idMenu: 6,
-      descripcion: 'Gaming',
-      isActive: true
-    }
-  ];
+  private mockCategoriesResponse: ApiResponse = {
+    error: false,
+    codigo: 'EP000',
+    message: 'Success',
+    menuItems: [
+      { idMenu: 1001, descripcion: 'Featured', isActive: false },
+      { idMenu: 2100, descripcion: 'Restaurants', isActive: false },
+      { idMenu: 3400, descripcion: 'Travel', isActive: false },
+      { idMenu: 4600, descripcion: 'Fuel', isActive: false },
+      { idMenu: 5900, descripcion: 'Services', isActive: false },
+      { idMenu: 7100, descripcion: 'Electronics', isActive: false }
+    ]
+  };
 
   private mockBrands = {
     all: [
@@ -77,12 +58,7 @@ export class MockDataService {
 
   getCategories(): Observable<ApiResponse> {
     console.log('🎭 Using mock categories data for GitHub Pages');
-    return of({
-      error: false,
-      codigo: '200',
-      message: 'Mock data loaded successfully',
-      categorias: this.mockCategories
-    });
+    return of(this.mockCategoriesResponse);
   }
 
   getBrands(): Observable<ApiResponse> {

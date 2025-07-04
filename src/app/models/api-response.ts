@@ -6,5 +6,6 @@ export interface ApiResponse {
   codigo: string;
   message: string;
   categorias?: CategoriaMenu[];
+  menuItems?: any[]; // Para la respuesta real de la API
   marcas?: MarcaMenu[];
 }

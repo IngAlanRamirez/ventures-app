@@ -14,9 +14,11 @@ export class CategoriesEffects {
         return this.categoriesService.getCategories().pipe(
           map((data: any) => {
             console.log('✅ CategoriesEffects: API response received:', data);
-            const categories = (data.categorias || []).map((cat: any) => ({
-              ...cat,
-              descripcion: cat.descripcion || cat.descripción || '',
+            // La API devuelve menuItems en lugar de categorias
+            const rawCategories = data.menuItems || data.categorias || [];
+            const categories = rawCategories.map((cat: any) => ({
+              idMenu: cat.idMenu,
+              descripcion: cat.descripción || cat.descripcion || '',
               isActive: false, // Inicialmente ninguna está activa
             }));
             console.log('📊 CategoriesEffects: Categories processed:', categories);
