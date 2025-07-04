@@ -36,13 +36,9 @@ export class CategoriesEffects {
     this.actions$.pipe(
       ofType(CategoriesActions.loadCategoriesSuccess),
       map(({ categories }) => {
-        console.log('🎆 CategoriesEffects: loadCategoriesSuccess received, auto-selecting first category');
-        console.log('📊 Categories received:', categories);
         if (categories.length > 0) {
-          console.log('🎯 Selecting first category:', categories[0]);
           return CategoriesActions.selectCategory({ category: categories[0] });
         }
-        console.log('⚠️ No categories to select');
         return { type: 'NO_ACTION' };
       })
     )
