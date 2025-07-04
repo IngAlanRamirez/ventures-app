@@ -18,33 +18,23 @@ export const initialState: BrandsState = {
 
 export const brandsReducer = createReducer(
   initialState,
-  on(BrandsActions.loadBrandsByCategory, (state, { categoryId }) => {
-    console.log('🔄 BrandsReducer: loadBrandsByCategory action - categoryId:', categoryId);
-    return {
-      ...state,
-      selectedCategoryId: categoryId,
-      loading: true,
-      error: null,
-    };
-  }),
-  on(BrandsActions.loadBrandsByCategorySuccess, (state, { brands }) => {
-    console.log('✅ BrandsReducer: loadBrandsByCategorySuccess - brands:', brands.length, 'items');
-    console.log('📊 BrandsReducer: First brand sample:', brands[0]);
-    return {
-      ...state,
-      brands,
-      loading: false,
-      error: null,
-    };
-  }),
-  on(BrandsActions.loadBrandsByCategoryFailure, (state, { error }) => {
-    console.error('❌ BrandsReducer: loadBrandsByCategoryFailure - error:', error);
-    return {
-      ...state,
-      loading: false,
-      error,
-    };
-  }),
+  on(BrandsActions.loadBrandsByCategory, (state, { categoryId }) => ({
+    ...state,
+    selectedCategoryId: categoryId,
+    loading: true,
+    error: null,
+  })),
+  on(BrandsActions.loadBrandsByCategorySuccess, (state, { brands }) => ({
+    ...state,
+    brands,
+    loading: false,
+    error: null,
+  })),
+  on(BrandsActions.loadBrandsByCategoryFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
   on(BrandsActions.clearBrands, (state) => ({
     ...state,
     brands: [],

@@ -12,8 +12,6 @@ export class BrandsEffects {
     this.actions$.pipe(
       ofType(CategoriesActions.selectCategory),
       map(({ category }) => {
-        console.log('🏷️ BrandsEffects: Category selected, loading brands for:', category);
-        console.log('🔢 Loading brands for categoryId:', category.idMenu);
         return BrandsActions.loadBrandsByCategory({ categoryId: category.idMenu });
       })
     )
@@ -24,29 +22,18 @@ export class BrandsEffects {
     this.actions$.pipe(
       ofType(BrandsActions.loadBrandsByCategory),
       mergeMap(({ categoryId }) => {
-        console.log('📦 BrandsEffects: loadBrandsByCategory action received for categoryId:', categoryId);
         return this.brandsService.getBrandsByCategory(categoryId).pipe(
           map((data: any) => {
-            console.log('✅ BrandsEffects: Brands API response received:', data);
-            console.log('🔍 Full API response structure for brands:', data);
             const rawBrands = data.menuItems || data.marcas || [];
-            console.log('🔢 Raw brands extracted:', rawBrands.length, 'items');
-            console.log('🔎 First raw brand:', rawBrands[0]);
-            
             const brands = rawBrands.map((brand: any) => ({
               idItem: brand.idItem,
               nombreMarca: brand.nombreMarca || brand.nombre || '',
               descripcion: brand.descripcion || brand.descripción || '',
               imagen: brand.imagen || brand.logo || '',
             }));
-            console.log('📏 BrandsEffects: Brands processed:', brands.length, 'brands');
-            console.log('🔎 First processed brand:', brands[0]);
-            console.log('🚀 BrandsEffects: Dispatching loadBrandsByCategorySuccess');
             return BrandsActions.loadBrandsByCategorySuccess({ brands });
           }),
           catchError((error) => {
-            console.error('❌ BrandsEffects: API error:', error);
-            console.log('🚀 BrandsEffects: Dispatching loadBrandsByCategoryFailure');
             return of(BrandsActions.loadBrandsByCategoryFailure({ error }));
           })
         );
